@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>682</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>801</width>
+      <height>571</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="page">
+     <widget class="QPushButton" name="camerabtn">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>410</y>
+        <width>161</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Camera connect</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="cameraLb">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>30</y>
+        <width>351</width>
+        <height>321</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2"/>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menucamera">
+    <property name="title">
+     <string>camera</string>
+    </property>
+    <addaction name="actionhome"/>
+    <addaction name="actionface"/>
+   </widget>
+   <widget class="QMenu" name="menuedge">
+    <property name="title">
+     <string>edge</string>
+    </property>
+    <addaction name="actionedge"/>
+   </widget>
+   <addaction name="menucamera"/>
+   <addaction name="menuedge"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionset">
+   <property name="text">
+    <string>set</string>
+   </property>
+  </action>
+  <action name="actionface">
+   <property name="text">
+    <string>face</string>
+   </property>
+  </action>
+  <action name="actionhome">
+   <property name="text">
+    <string>home</string>
+   </property>
+  </action>
+  <action name="actionedge">
+   <property name="text">
+    <string>edge</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>camerabtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>cameraOn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>251</x>
+     <y>448</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>601</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>cameraOn()</slot>
+ </slots>
+</ui>

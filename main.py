@@ -10,6 +10,7 @@ from edge import Edge
 
 class Thread(QThread):
     changePixmap = pyqtSignal(QImage)
+    print('1')
 
     def run(self):
         print('카메라실행')
@@ -24,6 +25,7 @@ class Thread(QThread):
                 cvc = QImage(rgbImage.data, w, h, bytePerLine, QImage.Format_RGB888)
                 p = cvc.scaled(640, 480, Qt.KeepAspectRatio)
                 self.changePixmap.emit(p)
+                print('3')
 
 
 class WindowClass(QMainWindow):
@@ -42,10 +44,12 @@ class WindowClass(QMainWindow):
 
     def setImage(self, image): # image = p
         self.cameraLb.setPixmap(QPixmap.fromImage(image))
+        print('4')
 
     def cameraOn(self):
         self.th.changePixmap.connect(self.setImage)
         self.th.start()
+        print('2')
 
     def gobackhome(self):
         self.stackedWidget.setCurrentIndex(0)

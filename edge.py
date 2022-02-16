@@ -13,7 +13,6 @@ class Edge(QWidget):
         self.thread = thread
         self.thread.changePixmap.connect(self.setImage)
 
-
     def setImage(self, image):
         self.originCam.setPixmap(QPixmap.fromImage(image))
 

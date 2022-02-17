@@ -10,6 +10,7 @@ from edge import Edge
 
 class Thread(QThread):
     changePixmap = pyqtSignal(QImage)
+    sobel = pyqtSignal(QImage)
     print('1')
 
     def run(self):

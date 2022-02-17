@@ -130,7 +130,7 @@
    <sender>sobelBtn</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
-   <slot>sobel()</slot>
+   <slot>sobelEdgeSlot()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>686</x>
@@ -142,8 +142,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>cannyBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>cannyEdgeSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>688</x>
+     <y>107</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>688</x>
+     <y>170</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
-  <slot>sobel()</slot>
+  <slot>sobelEdgeSlot()</slot>
+  <slot>cannyEdgeSlot()</slot>
  </slots>
 </ui>

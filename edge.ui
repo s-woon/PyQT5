@@ -158,9 +158,60 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>robertsBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>robotsEdgeSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>403</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>43</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>prewittBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>prewittEdgeSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>550</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>515</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>LaplacianBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>laplacianEdgeSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>436</x>
+     <y>108</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>129</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sobelEdgeSlot()</slot>
   <slot>cannyEdgeSlot()</slot>
+  <slot>robotsEdgeSlot()</slot>
+  <slot>prewittEdgeSlot()</slot>
+  <slot>laplacianEdgeSlot()</slot>
  </slots>
 </ui>

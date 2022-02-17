@@ -31,3 +31,4 @@ def filter2(image, mask):
                     sum += image[y, x] * mask[u, v]           # 회선 수식
             dst[i, j] = sum
     return dst
+

@@ -16,9 +16,7 @@ class Edge(QWidget):
         self.thread.changePixmap.connect(self.setImage)
 
     def setImage(self, image):
-        lbW = self.originCam.width()
-        lbH = self.originCam.height()
-        self.originCam.setPixmap(QPixmap.fromImage(image).scaled(lbW, lbH, Qt.KeepAspectRatio))
+        self.originCam.setPixmap(QPixmap.fromImage(image).scaled(self.originCam.size(), Qt.KeepAspectRatio))
 
     def robotsEdgeSlot(self):
         pass
@@ -41,14 +39,16 @@ class Edge(QWidget):
         ndarry = self.qimg2nparr(image)
         sobel1 = cv2.Sobel(ndarry, cv2.CV_32F, 1, 0, 3) # x 방향 미분 - 수직마스크
         sobel2 = cv2.Sobel(ndarry, cv2.CV_32F, 0, 1, 3) # y 방향 미분 - 수평마스크
-        grayimg = cv2.cvtColor(sobel1, cv2.COLOR_BGR2GRAY)
-        sobel1 = cv2.convertScaleAbs(grayimg)
-        sobel2 = cv2.convertScaleAbs(sobel2)
-        h, w = sobel1.shape
-        qimg = QImage(sobel1.data, w, h, QImage.Format_Grayscale8)
-        lbW = self.edgeCam.width()
-        lbH = self.edgeCam.height()
-        self.edgeCam.setPixmap(QPixmap.fromImage(qimg).scaled(lbW, lbH, Qt.KeepAspectRatio))
+        grayimgX = cv2.cvtColor(sobel1, cv2.COLOR_BGR2GRAY)
+        grayimgY = cv2.cvtColor(sobel2, cv2.COLOR_BGR2GRAY)
+        sobel1 = cv2.convertScaleAbs(grayimgX)
+        sobel2 = cv2.convertScaleAbs(grayimgY)
+        h1, w1 = sobel1.shape
+        h2, w2 = sobel2.shape
+        qimg1 = QImage(sobel1.data, w1, h1, QImage.Format_Grayscale8)
+        qimg2 = QImage(sobel2.data, w2, h2, QImage.Format_Grayscale8)
+        self.edgeCam.setPixmap(QPixmap.fromImage(qimg1).scaled(self.edgeCam.size(), Qt.KeepAspectRatio))
+        self.edgeCam_2.setPixmap(QPixmap.fromImage(qimg2).scaled(self.edgeCam.size(), Qt.KeepAspectRatio))
 
 
     def laplacianEdgeSlot(self):
@@ -61,9 +61,7 @@ class Edge(QWidget):
         laplacian = cv2.convertScaleAbs(laplacian) # 절대값
         h, w = laplacian.shape
         qimg = QImage(laplacian.data, w, h, QImage.Format_Grayscale8)
-        lbW = self.edgeCam.width()
-        lbH = self.edgeCam.height()
-        self.edgeCam.setPixmap(QPixmap.fromImage(qimg).scaled(lbW, lbH, Qt.KeepAspectRatio))
+        self.edgeCam.setPixmap(QPixmap.fromImage(qimg).scaled(self.edgeCam.size(), Qt.KeepAspectRatio))
 
 
     def cannyEdgeSlot(self):
@@ -74,8 +72,7 @@ class Edge(QWidget):
         canny = cv2.Canny(ndarry, 50, 200)
         h, w = canny.shape
         qimg = QImage(canny.data, w, h, QImage.Format_Grayscale8)
-        self.edgeCam.setPixmap(QPixmap.fromImage(qimg).scaled(640, 480, Qt.KeepAspectRatio))
-        # self.edgeCam.setPixmap(QPixmap.fromImage(qimg).scaled(self.edgeCam.size(), Qt.KeepAspectRatio))
+        self.edgeCam.setPixmap(QPixmap.fromImage(qimg).scaled(self.edgeCam.size(), Qt.KeepAspectRatio))
 
 
     def qimg2nparr(self, qimg):

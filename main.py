@@ -44,9 +44,10 @@ class WindowClass(QMainWindow):
         self.stackedWidget.insertWidget(2, Edge(self, self.th))
 
     def setImage(self, image): # image = p
-        lbW = self.cameraLb.width()
-        lbH = self.cameraLb.height()
-        self.cameraLb.setPixmap(QPixmap.fromImage(image).scaled(lbW, lbH, Qt.KeepAspectRatio))
+        # lbW = self.cameraLb.width()
+        # lbH = self.cameraLb.height()
+        # self.cameraLb.setPixmap(QPixmap.fromImage(image).scaled(lbW, lbH, Qt.KeepAspectRatio))
+        self.cameraLb.setPixmap(QPixmap.fromImage(image).scaled(self.cameraLb.size(), Qt.KeepAspectRatio))
         # print('4')
 
     def cameraOn(self):

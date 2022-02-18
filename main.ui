@@ -72,15 +72,10 @@
     </property>
     <addaction name="actionhome"/>
     <addaction name="actionface"/>
-   </widget>
-   <widget class="QMenu" name="menuedge">
-    <property name="title">
-     <string>edge</string>
-    </property>
-    <addaction name="actionedge"/>
+    <addaction name="actionedges"/>
+    <addaction name="actionaffine"/>
    </widget>
    <addaction name="menucamera"/>
-   <addaction name="menuedge"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionset">
@@ -101,6 +96,16 @@
   <action name="actionedge">
    <property name="text">
     <string>edge</string>
+   </property>
+  </action>
+  <action name="actionedges">
+   <property name="text">
+    <string>edge</string>
+   </property>
+  </action>
+  <action name="actionaffine">
+   <property name="text">
+    <string>affine</string>
    </property>
   </action>
  </widget>

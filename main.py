@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.uic import loadUi
 from face import facecam
 from edge import Edge
+from affine import Affine
 
 
 class Thread(QThread):
@@ -38,10 +39,12 @@ class WindowClass(QMainWindow):
         self.actionhome.triggered.connect(self.gobackhome)
         self.actionface.triggered.connect(self.goface)
 
-        self.actionedge.triggered.connect(self.goedge)
+        self.actionedges.triggered.connect(self.goedge)
+        self.actionaffine.triggered.connect(self.goaffine)
 
         self.stackedWidget.insertWidget(1, facecam(self))
         self.stackedWidget.insertWidget(2, Edge(self, self.th))
+        self.stackedWidget.insertWidget(3, Affine(self, self.th))
 
     def setImage(self, image): # image = p
         # lbW = self.cameraLb.width()
@@ -63,6 +66,9 @@ class WindowClass(QMainWindow):
 
     def goedge(self):
         self.stackedWidget.setCurrentIndex(2)
+
+    def goaffine(self):
+        self.stackedWidget.setCurrentIndex(3)
 
 
 if __name__ == "__main__" :

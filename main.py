@@ -6,6 +6,8 @@ from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.uic import loadUi
 from face import facecam
 from edge import Edge
+from rgb import rgb
+from movecam import Move
 from affine import Affine
 
 
@@ -38,13 +40,16 @@ class WindowClass(QMainWindow):
 
         self.actionhome.triggered.connect(self.gobackhome)
         self.actionface.triggered.connect(self.goface)
-
+        self.actionrgb.triggered.connect(self.gorgb)
+        self.actionmove.triggered.connect(self.gomove)
         self.actionedges.triggered.connect(self.goedge)
-        self.actionaffine.triggered.connect(self.goaffine)
+        # self.actionaffine.triggered.connect(self.goaffine)
 
         self.stackedWidget.insertWidget(1, facecam(self))
         self.stackedWidget.insertWidget(2, Edge(self, self.th))
-        self.stackedWidget.insertWidget(3, Affine(self, self.th))
+        self.stackedWidget.insertWidget(3, rgb(self, self.th))
+        self.stackedWidget.insertWidget(4, Move(self, self.th))
+        # self.stackedWidget.insertWidget(3, Affine(self, self.th))
 
     def setImage(self, image): # image = p
         # lbW = self.cameraLb.width()
@@ -58,6 +63,41 @@ class WindowClass(QMainWindow):
         self.th.start()
         # print('2')
 
+    def record(self):
+        print('Recording Start')
+        fps = 29.97
+        print(1)
+        width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+        print(2)
+        height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        size = (cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        print(3)
+        delay = round(1000/fps)
+        print(4)
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        print(5)
+        writer = cv2.VideoWriter('test.avi', fourcc, fps, size)
+        print(6)
+        if writer.isOpened() == False: raise Exception("동영상 파일 개방 안됨")
+        print(7)
+        while True:
+            print(8)
+            ret, frame = cap.read()
+            print(9)
+            if not ret: break
+            print(10)
+            if cv2.waitKey(delay) >= 0: break
+            print(11)
+
+            writer.write(frame)
+            print(12)
+
+        writer.release()
+        print(13)
+        cap.release()
+        print('Recording Stop')
+
+
     def gobackhome(self):
         self.stackedWidget.setCurrentIndex(0)
 
@@ -67,8 +107,14 @@ class WindowClass(QMainWindow):
     def goedge(self):
         self.stackedWidget.setCurrentIndex(2)
 
-    def goaffine(self):
+    def gorgb(self):
         self.stackedWidget.setCurrentIndex(3)
+
+    def gomove(self):
+        self.stackedWidget.setCurrentIndex(4)
+
+    # def goaffine(self):
+    #     self.stackedWidget.setCurrentIndex(3)
 
 
 if __name__ == "__main__" :

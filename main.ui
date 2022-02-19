@@ -20,7 +20,7 @@
       <x>0</x>
       <y>0</y>
       <width>801</width>
-      <height>571</height>
+      <height>641</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -53,6 +53,19 @@
        <string/>
       </property>
      </widget>
+     <widget class="QPushButton" name="camerabtn_2">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>410</y>
+        <width>161</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Record</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="page_2"/>
    </widget>
@@ -63,7 +76,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menucamera">
@@ -74,6 +87,8 @@
     <addaction name="actionface"/>
     <addaction name="actionedges"/>
     <addaction name="actionaffine"/>
+    <addaction name="actionrgb"/>
+    <addaction name="actionmove"/>
    </widget>
    <addaction name="menucamera"/>
   </widget>
@@ -108,6 +123,16 @@
     <string>affine</string>
    </property>
   </action>
+  <action name="actionrgb">
+   <property name="text">
+    <string>rgb</string>
+   </property>
+  </action>
+  <action name="actionmove">
+   <property name="text">
+    <string>move</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -127,8 +152,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>camerabtn_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>record()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>420</x>
+     <y>441</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>426</x>
+     <y>818</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>cameraOn()</slot>
+  <slot>record()</slot>
  </slots>
 </ui>

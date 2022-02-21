@@ -4,6 +4,7 @@ from PyQt5.QtCore import QThread, pyqtSignal, Qt
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.uic import loadUi
+from comm.charr import qimg2nparr, nparr2qimg
 
 
 class Affine(QWidget):
@@ -12,19 +13,27 @@ class Affine(QWidget):
         loadUi('affine.ui', self)
         self.parent = parent
         self.thread = thread
-
-
-
-        self.thread.changePixmap.connect(self.setImage)
+        self.thread.Frame.connect(self.setrect)
         self.setMouseTracking(True)
 
-    def setImage(self, image):
-        self.originCam.setPixmap(QPixmap.fromImage(image).scaled(self.originCam.size(), Qt.KeepAspectRatio))
+    def setrect(self, array):
+        pts1 = np.float32([(30, 30), (450, 30), (200, 370)])
+        pts2 = np.float32([(30, 30), (450, 30), (200, 370)])
+        small = np.array([12, 12])
+
+        rois = [(p - small, small * 2) for p in pts1]
+        for (x, y), (w, h) in np.int32(rois):
+            cv2.rectangle(array, (x, y, w, h), (0, 255, 0), 2)
+
+        h1, w1, ch = array.shape
+        qimg = QImage(array.data, w1, h1, w1*ch, QImage.Format_RGB888)
+        self.originCam.setPixmap(QPixmap.fromImage(qimg).scaled(self.originCam.size(), Qt.KeepAspectRatio))
+
+
 
     def affineImage(self, image):
         # def contain_pts(p, p1, p2):
         #     return p1[0] <= p[0] < p2[0] and p1[1] <= p[1] < p2[1]
-        #
         #
         # def draw_rect(img, pts):
         #     rois = [(p - small, small * 2) for p in pts]
@@ -59,22 +68,3 @@ class Affine(QWidget):
 
     # def mouseMoveEvent(self, event):  # event QMouseEvent
     #     print('(%d %d)' % (event.x(), event.y()))
-
-
-
-
-
-    def qimg2nparr(self, qimg):
-        ''' convert rgb qimg -> cv2 bgr image '''
-        # NOTE: it would be changed or extended to input image shape
-        # Now it just used for canvas stroke.. but in the future... I don't know :(
-
-        # qimg = qimg.convertToFormat(QImage.Format_RGB32)
-        # qimg = qimg.convertToFormat(QImage.Format_RGB888)
-        h, w = qimg.height(), qimg.width()
-        # print(h,w)
-        ptr = qimg.constBits()
-        ptr.setsize(h * w * 3)
-        # print(h, w, ptr)
-        return np.frombuffer(ptr, np.uint8).reshape(h, w, 3)  # Copies the data
-        #return np.array(ptr).reshape(h, w, 3).astype(np.uint8)  #  Copies the data

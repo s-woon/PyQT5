@@ -155,34 +155,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>camerabtn</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>cameraOn()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>251</x>
-     <y>448</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>194</x>
-     <y>601</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>startbtn</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>recstart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>420</x>
+     <x>330</x>
      <y>441</y>
     </hint>
     <hint type="destinationlabel">
      <x>426</x>
      <y>626</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>camerabtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>cameraOn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>161</x>
+     <y>448</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>601</y>
     </hint>
    </hints>
   </connection>

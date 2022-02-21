@@ -1,3 +1,4 @@
+import datetime
 import sys
 import cv2
 import numpy as np
@@ -20,14 +21,12 @@ class Thread(QThread):
 
     # print('1')
 
-
     def run(self):
         print('카메라실행')
         global cap
         cap = cv2.VideoCapture(0)
         while True:
             ret, frame = cap.read()
-            self.recordFrame.emit(frame)
             if ret:
                 rgbImage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 rgbImage = cv2.flip(rgbImage, 1) # 좌우반전
@@ -36,6 +35,7 @@ class Thread(QThread):
                 cvc = QImage(rgbImage.data, w, h, bytePerLine, QImage.Format_RGB888)
                 p = cvc.scaled(640, 480, Qt.KeepAspectRatio)
                 self.changePixmap.emit(p)
+                self.recordFrame.emit(frame)
                 self.Frame.emit(rgbImage)
                 # print('3')
 
@@ -52,18 +52,17 @@ class WindowClass(QMainWindow):
         self.actionmove.triggered.connect(self.gomove)
         self.actionedges.triggered.connect(self.goedge)
         self.actionrgbvideo.triggered.connect(self.gorgbvideo)
-        # self.actionaffine.triggered.connect(self.goaffine)
+        self.actionaffine.triggered.connect(self.goaffine)
 
         self.stackedWidget.insertWidget(1, facecam(self))
         self.stackedWidget.insertWidget(2, Edge(self, self.th))
         self.stackedWidget.insertWidget(3, rgb(self, self.th))
         self.stackedWidget.insertWidget(4, Move(self, self.th))
         self.stackedWidget.insertWidget(5, rgbvideo(self, self.th))
-        # self.stackedWidget.insertWidget(3, Affine(self, self.th))
+        self.stackedWidget.insertWidget(6, Affine(self, self.th))
 
         self.startbtn.setCheckable(True)
-        self.startbtn.clicked.connect(self.recstart)
-
+        # self.startbtn.clicked.connect(self.recstart) # Pyqt designer 에서 준 시그널이랑 중복돼서 두번 녹화, 저장됨
 
     def setImage(self, image): # image = p
         # lbW = self.cameraLb.width()
@@ -81,10 +80,11 @@ class WindowClass(QMainWindow):
         global writer
         if state:
             fps = 29.97
-            size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-            delay = round(1000 / fps)
+            # size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+            # delay = round(1000 / fps)
+            date = datetime.datetime.now()
             fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            writer = cv2.VideoWriter('test.avi', fourcc, fps, size)
+            writer = cv2.VideoWriter(str(date)+'.avi', fourcc, fps, (640, 480))
             self.th.recordFrame.connect(self.recording)
         else:
             writer.release()
@@ -115,8 +115,8 @@ class WindowClass(QMainWindow):
     def gorgbvideo(self):
         self.stackedWidget.setCurrentIndex(5)
 
-    # def goaffine(self):
-    #     self.stackedWidget.setCurrentIndex(3)
+    def goaffine(self):
+        self.stackedWidget.setCurrentIndex(6)
 
 
 if __name__ == "__main__" :

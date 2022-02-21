@@ -18,7 +18,6 @@ class rgbvideo(QWidget):
         self.thread.changePixmap.connect(self.setImage)
         self.thread.Frame.connect(self.setRGB)
 
-
     def setImage(self, image):
         self.originCam.setPixmap(QPixmap.fromImage(image).scaled(self.originCam.size(), Qt.KeepAspectRatio))
 

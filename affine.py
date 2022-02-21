@@ -13,46 +13,40 @@ class Affine(QWidget):
         self.parent = parent
         self.thread = thread
 
-        img = cv2.imread('carry1.jpg', 1)
-        global picture
-        picture = pyqtSignal(QImage)
-        self.picture.emit(img)
 
 
-
-        # self.thread.changePixmap.connect(self.setImage)
+        self.thread.changePixmap.connect(self.setImage)
         self.setMouseTracking(True)
 
     def setImage(self, image):
         self.originCam.setPixmap(QPixmap.fromImage(image).scaled(self.originCam.size(), Qt.KeepAspectRatio))
 
     def affineImage(self, image):
-        def contain_pts(p, p1, p2):
-            return p1[0] <= p[0] < p2[0] and p1[1] <= p[1] < p2[1]
-
-
-        def draw_rect(img, pts):
-            rois = [(p - small, small * 2) for p in pts]
-            for (x, y), (w, h) in np.int32(rois):
-                cv2.rectangle(img, (x, y, w, h), (0, 255, 0), 2)
-            qimg = QImage(img.data, w, h, QImage.Format_RGB888)
-            self.affineCam.setPixmap(QPixmap.fromImage(qimg).scaled(self.originCam.size(), Qt.KeepAspectRatio))
-
-        def affine(img):
-            aff_mat = cv2.getAffineTransform(pts1, pts2)
-            dst = cv2.warpAffine(img, aff_mat, image.shape[1::-1], cv2.INTER_LINEAR)
-
-        small = np.array([12, 12])
-        check = -1
-        pts1 = np.float32([(30, 30), (450, 30), (200, 370)])
-        pts2 = np.float32([(30, 30), (450, 30), (200, 370)])
-
-        draw_rect(np.copy(image), pts1)
-        # self.affineCam.setPixmap(QPixmap.fromImage(image).scaled(self.affineCam.size(), Qt.KeepAspectRatio))
+        # def contain_pts(p, p1, p2):
+        #     return p1[0] <= p[0] < p2[0] and p1[1] <= p[1] < p2[1]
+        #
+        #
+        # def draw_rect(img, pts):
+        #     rois = [(p - small, small * 2) for p in pts]
+        #     for (x, y), (w, h) in np.int32(rois):
+        #         cv2.rectangle(img, (x, y, w, h), (0, 255, 0), 2)
+        #     qimg = QImage(img.data, w, h, QImage.Format_RGB888)
+        #     self.affineCam.setPixmap(QPixmap.fromImage(qimg).scaled(self.originCam.size(), Qt.KeepAspectRatio))
+        #
+        # def affine(img):
+        #     aff_mat = cv2.getAffineTransform(pts1, pts2)
+        #     dst = cv2.warpAffine(img, aff_mat, image.shape[1::-1], cv2.INTER_LINEAR)
+        #
+        # small = np.array([12, 12])
+        # check = -1
+        # pts1 = np.float32([(30, 30), (450, 30), (200, 370)])
+        # pts2 = np.float32([(30, 30), (450, 30), (200, 370)])
+        #
+        # draw_rect(np.copy(image), pts1)
+        self.affineCam.setPixmap(QPixmap.fromImage(image).scaled(self.affineCam.size(), Qt.KeepAspectRatio))
 
     def affineSlot(self):
-        self.picture.connect(self.affineImage)
-        # self.thread.changePixmap.connect(self.affineImage)
+        self.thread.changePixmap.connect(self.affineImage)
 
     def mousePressEvent(self, event):  # event : QMouseEvent
         if event.buttons() & Qt.LeftButton:

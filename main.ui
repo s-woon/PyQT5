@@ -30,7 +30,7 @@
      <widget class="QPushButton" name="camerabtn">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>40</x>
         <y>410</y>
         <width>161</width>
         <height>25</height>
@@ -56,7 +56,7 @@
      <widget class="QPushButton" name="startbtn">
       <property name="geometry">
        <rect>
-        <x>320</x>
+        <x>230</x>
         <y>410</y>
         <width>161</width>
         <height>25</height>

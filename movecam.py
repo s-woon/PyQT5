@@ -6,7 +6,6 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtMultimedia import QCameraInfo, QCamera, QCameraImageCapture
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.uic import loadUi
-from comm.filters import filter
 
 class Move(QWidget):
     def __init__(self, parent=None, thread=None):

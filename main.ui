@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>682</height>
+    <width>823</width>
+    <height>681</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>801</width>
+      <width>821</width>
       <height>641</height>
      </rect>
     </property>
@@ -53,7 +53,7 @@
        <string/>
       </property>
      </widget>
-     <widget class="QPushButton" name="camerabtn_2">
+     <widget class="QPushButton" name="startbtn">
       <property name="geometry">
        <rect>
         <x>320</x>
@@ -63,7 +63,19 @@
        </rect>
       </property>
       <property name="text">
-       <string>Record</string>
+       <string>Recording start</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+      <property name="autoRepeat">
+       <bool>false</bool>
+      </property>
+      <property name="autoExclusive">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>
@@ -75,8 +87,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>21</height>
+     <width>823</width>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menucamera">
@@ -89,6 +101,7 @@
     <addaction name="actionaffine"/>
     <addaction name="actionrgb"/>
     <addaction name="actionmove"/>
+    <addaction name="actionrgbvideo"/>
    </widget>
    <addaction name="menucamera"/>
   </widget>
@@ -133,6 +146,11 @@
     <string>move</string>
    </property>
   </action>
+  <action name="actionrgbvideo">
+   <property name="text">
+    <string>rgbvideo</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -153,10 +171,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>camerabtn_2</sender>
+   <sender>startbtn</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>record()</slot>
+   <slot>recstart()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>420</x>
@@ -164,13 +182,14 @@
     </hint>
     <hint type="destinationlabel">
      <x>426</x>
-     <y>818</y>
+     <y>626</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>cameraOn()</slot>
-  <slot>record()</slot>
+  <slot>recstart()</slot>
+  <slot>recstop()</slot>
  </slots>
 </ui>

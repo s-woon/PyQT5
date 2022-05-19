@@ -11,4 +11,12 @@
 
 # MainWindow
 
-![image](https://user-images.githubusercontent.com/95533644/168961197-62bddca4-f6cf-4623-9641-68f435a7880a.png)
+![image](https://user-images.githubusercontent.com/95533644/169422677-e4ce0165-e1da-4a8c-8b88-8c99e2d52f2b.png)
+
+# Edge
+
+![image](https://user-images.githubusercontent.com/95533644/169422887-2daa004e-37ec-4d0d-9822-ecad463f11cb.png)
+
+# RGB 분리
+
+![image](https://user-images.githubusercontent.com/95533644/169422809-fa389e4f-015e-4c6b-a89c-ed1422ba5224.png)
